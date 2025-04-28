@@ -1,0 +1,563 @@
+package b;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+public class pp extends Application {
+    private double balance = 0; // Balance with double precision
+    private Scene loginScene, alreadyaccScene, exitScene, menuScene, DepositScene, WithdrawScene, checkScene, AboutScene;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage stage) {
+        loginScene();
+        menuScene();
+        alreadyaccScene();
+        exitScene();
+        DepositScene();
+        WithdrawScene();
+        CheckScene();
+        AboutScene();
+        stage.setTitle("ATM");
+        stage.setScene(alreadyaccScene);
+        stage.show();
+    }
+
+    private void AboutScene() {
+        Text text2 = new Text("This is me Muhammad Khalil. I am an undergraduate in Software Engineering from Quaid e Awam University of Science and Technology Nawabshah (Sindh). I am a Java Developer and SEO Expert, and I also provide Guest Posting Service on Fiverr.");
+        text2.setFont(Font.font(20));
+        text2.setWrappingWidth(360);
+        text2.setStyle("-fx-font-weight: bold;");
+        text2.setFill(Color.ALICEBLUE);
+
+        Button exitButton = new Button("Exit");
+        //Button menuButton = new Button("");
+        exitButton.setFont(Font.font(18));
+      //  menuButton.setFont(Font.font(18));
+        exitButton.setStyle("-fx-background-color: black; -fx-text-fill: yellow");
+       // menuButton.setStyle("-fx-background-color: black; -fx-text-fill: yellow");
+
+        exitButton.setOnAction(e -> {
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            stage.setScene(exitScene);
+        });
+
+       // menuButton.setOnAction(e -> {
+       //     Stage stage = (Stage) menuButton.getScene().getWindow();
+       //     stage.setScene(menuScene);
+       // });
+
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/pic.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+
+        AnchorPane pane = new AnchorPane();
+        pane.setBottomAnchor(exitButton, 10.0);
+        pane.setLeftAnchor(exitButton, 10.0);
+     //   pane.setBottomAnchor(menuButton, 10.0);
+     //   pane.setRightAnchor(menuButton, 10.0);
+        pane.getChildren().addAll(exitButton);
+
+        BorderPane root = new BorderPane();
+        root.setCenter(text2);
+        root.setBottom(pane);
+        root.setBackground(new Background(bgImg));
+
+        AboutScene = new Scene(root, 470, 450);
+    }
+
+    private void CheckScene() {
+        Label label1 = new Label("Check Balance");
+        label1.setPadding(new Insets(10));
+        label1.setStyle("-fx-font-weight: bold;");
+        label1.setTextFill(Color.YELLOW);
+        label1.setAlignment(Pos.CENTER);
+        label1.setFont(Font.font(30));
+        label1.setUnderline(true);
+
+        Label label2 = new Label();
+        label2.setFont(Font.font(20));
+        label2.setText("Your Total Balance is: " + balance);
+        label2.setStyle("-fx-font-weight: bold;");
+        label2.setTextFill(Color.CORNFLOWERBLUE);
+        label2.setFont(Font.font(27));
+
+        Button exitButton = new Button("Exit");
+        Button menuButton = new Button("Menu");
+        exitButton.setFont(Font.font(18));
+        menuButton.setFont(Font.font(18));
+        exitButton.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        menuButton.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+     //   exitButton.setStyle("-fx-font-weight: bold;");
+     //   menuButton.setStyle("-fx-font-weight: bold;");
+        exitButton.setOnAction(e -> {
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            stage.setScene(exitScene);
+        });
+
+        menuButton.setOnAction(e -> {
+            Stage stage = (Stage) menuButton.getScene().getWindow();
+            stage.setScene(menuScene);
+        });
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/HBL.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+        VBox vBox = new VBox(label2);
+        vBox.setAlignment(Pos.CENTER);
+
+        AnchorPane pane = new AnchorPane();
+        pane.setBottomAnchor(exitButton, 10.0);
+        pane.setLeftAnchor(exitButton, 10.0);
+        pane.setBottomAnchor(menuButton, 10.0);
+        pane.setRightAnchor(menuButton, 10.0);
+        pane.getChildren().addAll(exitButton, menuButton);
+
+        BorderPane root = new BorderPane();
+        root.setBackground(new Background(bgImg));
+        root.setTop(label1);
+        root.setCenter(vBox);
+        root.setBottom(pane);
+
+        checkScene = new Scene(root, 450, 400);
+    }
+
+    private void WithdrawScene() {
+        Label label1 = new Label("Withdraw Amount");
+        label1.setStyle("-fx-font-weight: bold;");
+        label1.setTextFill(Color.YELLOW);
+        label1.setPadding(new Insets(10));
+        label1.setAlignment(Pos.CENTER);
+        label1.setFont(Font.font(30));
+        label1.setUnderline(true);
+
+        Label label2 = new Label("Enter Amount to Withdraw");
+        label2.setStyle("-fx-font-weight: bold;");
+        label2.setTextFill(Color.CORAL);
+        label2.setFont(Font.font(20));
+
+        Label label3 = new Label();
+        label3.setTextFill(Color.BLUE);
+        label3.setFont(Font.font(18));
+        label3.setStyle("-fx-font-weight: bold;");
+
+
+        TextField textField = new TextField();
+        textField.setFont(Font.font(18));
+        textField.setPrefWidth(150);
+        textField.setPromptText("Enter Amount in Numbers");
+        textField.setFocusTraversable(false);
+
+        Button exitButton = new Button("Exit");
+        Button menuButton = new Button("Menu");
+        Button withdrawButton = new Button("Withdraw");
+        withdrawButton.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        exitButton.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        menuButton.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        exitButton.setFont(Font.font(18));
+        menuButton.setFont(Font.font(18));
+        withdrawButton.setFont(Font.font(18));
+
+        exitButton.setOnAction(e -> {
+            Stage stage = (Stage) exitButton.getScene().getWindow();
+            stage.setScene(exitScene);
+        });
+
+        menuButton.setOnAction(e -> {
+            Stage stage = (Stage) menuButton.getScene().getWindow();
+            stage.setScene(menuScene);
+        });
+
+        withdrawButton.setOnAction(e -> {
+            double amount = getAmount(textField);
+            if (amount > 0 && balance >= amount) {
+                balance -= amount;
+                label3.setText("Withdraw Successful: " + amount);
+                label3.setTextFill(Color.BLUE);
+                label3.setFont(Font.font(18));
+                CheckScene(); // Update checkScene to reflect the new balance
+            } else if (amount > 0) {
+                label3.setText("Insufficient Balance");
+            } else {
+                label3.setText("Please Enter Amount");
+            }
+        });
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/HBL.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+
+        VBox vBox = new VBox(label2, textField, withdrawButton, label3);
+        vBox.setAlignment(Pos.CENTER);
+
+        AnchorPane pane = new AnchorPane();
+        pane.setBottomAnchor(exitButton, 10.0);
+        pane.setLeftAnchor(exitButton, 10.0);
+        pane.setBottomAnchor(menuButton, 10.0);
+        pane.setRightAnchor(menuButton, 10.0);
+        pane.getChildren().addAll(exitButton, menuButton);
+
+        BorderPane root = new BorderPane();
+        root.setBackground(new Background(bgImg));
+        root.setTop(label1);
+        root.setCenter(vBox);
+        root.setBottom(pane);
+
+        WithdrawScene = new Scene(root, 450, 400);
+    }
+
+    private void DepositScene() {
+        Label label1 = new Label("Deposit Amount");
+        label1.setStyle("-fx-font-weight: bold;");
+        label1.setTextFill(Color.YELLOW);
+        label1.setPadding(new Insets(10));
+        label1.setAlignment(Pos.CENTER);
+        label1.setFont(Font.font(30));
+        label1.setUnderline(true);
+
+        Label label2 = new Label("Enter Amount to Deposit");
+        label2.setStyle("-fx-font-weight: bold;");
+        label2.setTextFill(Color.CORAL);
+        label2.setFont(Font.font(25));
+
+        Label label3 = new Label();
+        label3.setTextFill(Color.BLUE);
+        label3.setFont(Font.font(18));
+        label3.setStyle("-fx-font-weight: bold;");
+
+
+        TextField textField = new TextField();
+        textField.setFont(Font.font(18));
+        textField.setPrefWidth(150);
+        textField.setPromptText("Enter Amount in Numbers");
+        textField.setFocusTraversable(false);
+
+        Button b1 = new Button("Exit");
+        Button b2 = new Button("Menu");
+        Button depositButton = new Button("Deposit");
+        b1.setFont(Font.font(18));
+        b2.setFont(Font.font(18));
+        b1.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        b2.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        depositButton.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        depositButton.setFont(Font.font(18));
+
+        depositButton.setOnAction(e -> {
+            String depositText = textField.getText();
+            if (!depositText.isEmpty()) {
+                if (depositText.matches("\\d+(\\.\\d+)?")) { 
+                    double depositAmount = Double.parseDouble(depositText);
+                    balance += depositAmount; 
+                    label3.setText("Your Amount is Deposited: " + depositAmount);
+                    label3.setTextFill(Color.BLUE);
+                    label3.setStyle("-fx-font-weight: bold;");
+                    CheckScene(); 
+                } else {
+                    label3.setText("Please enter a valid number");
+                }
+            } else {
+                label3.setText("Enter Amount Please");
+            }
+        });
+
+        b1.setOnAction(e -> {
+            Stage stage = (Stage) b1.getScene().getWindow();
+            stage.setScene(exitScene);
+        });
+
+        b2.setOnAction(e -> {
+            Stage stage = (Stage) b2.getScene().getWindow();
+            stage.setScene(menuScene);
+        });
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/HBL.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+        VBox vBox = new VBox(label2, textField, depositButton, label3);
+        vBox.setAlignment(Pos.CENTER);
+
+        AnchorPane pane = new AnchorPane();
+        pane.setBottomAnchor(b1, 10.0);
+        pane.setLeftAnchor(b1, 10.0);
+        pane.setBottomAnchor(b2, 10.0);
+        pane.setRightAnchor(b2, 10.0);
+        pane.getChildren().addAll(b1, b2);
+
+        BorderPane root = new BorderPane();
+        root.setBackground(new Background(bgImg));
+        root.setTop(label1);
+        root.setCenter(vBox);
+        root.setBottom(pane);
+
+        DepositScene = new Scene(root, 450, 400);
+    }
+
+    private double getAmount(TextField textField) {
+        double amount = 0;
+        String text = textField.getText();
+        if (!text.isEmpty() && text.matches("\\d+(\\.\\d+)?")) { 
+            amount = Double.parseDouble(text);
+        }
+        return amount;
+    }
+
+    private void menuScene() {
+        Label label1 = new Label("Welcome Menu Scene");
+        label1.setTextFill(Color.YELLOW);
+        label1.setStyle("-fx-font-weight: bold;");
+        label1.setFont(Font.font(30));
+        label1.setUnderline(true);
+        label1.setPadding(new Insets(10));
+
+        HBox hBox = new HBox(label1);
+        hBox.setAlignment(Pos.TOP_CENTER);
+        Button b1 = new Button("Deposit Balance");
+        Button b2 = new Button("Withdraw Balance");
+        Button b3 = new Button("Check Balance");
+        Button b4 = new Button("Exit");
+        b1.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        b2.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        b3.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        b4.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        b1.setFont(Font.font(20));
+        b2.setFont(Font.font(20));
+        b3.setFont(Font.font(20));
+        b4.setFont(Font.font(20));
+        b4.setAlignment(Pos.BOTTOM_LEFT);
+
+        b1.setOnAction(e -> {
+            Stage stage = (Stage) b1.getScene().getWindow();
+            stage.setScene(DepositScene);
+        });
+
+        b2.setOnAction(e -> {
+            Stage stage = (Stage) b2.getScene().getWindow();
+            stage.setScene(WithdrawScene);
+        });
+
+        b3.setOnAction(e -> {
+            Stage stage = (Stage) b3.getScene().getWindow();
+            stage.setScene(checkScene);
+        });
+
+        b4.setOnAction(e -> {
+            Stage stage = (Stage) b4.getScene().getWindow();
+            stage.setScene(exitScene);
+        });
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/HBL.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+        VBox vBox = new VBox(10);
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll(b1, b2, b3);
+
+        BorderPane root = new BorderPane();
+        root.setBackground(new Background(bgImg));
+        root.setTop(hBox);
+        root.setCenter(vBox);
+        root.setBottom(b4);
+        menuScene = new Scene(root, 450, 400);
+    }
+
+    private void exitScene() {
+        Text text = new Text("Please Remove Your Card " + "THANKYOU");
+         text.setFill(Color.CORAL);
+         text.setStyle("-fx-font-weight: bold;");
+        text.setFont(Font.font(20));
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/HBL.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+        BorderPane rootBorderPane = new BorderPane();
+        rootBorderPane.setBackground(new Background(bgImg));
+        rootBorderPane.setCenter(text);
+        Button b1 = new Button("Exit");
+        b1.setAlignment(Pos.BOTTOM_LEFT);
+        b1.setFont(Font.font(18));
+        b1.setPadding(new Insets(10));
+        b1.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        b1.setOnAction(e -> System.exit(0));
+        rootBorderPane.setBottom(b1);
+        exitScene = new Scene(rootBorderPane, 450, 400);
+    }
+
+    private void alreadyaccScene() {
+        BorderPane pane = new BorderPane();
+        Label label2 = new Label();
+        Label label1 = new Label("Is This Your Account?");
+        label1.setStyle("-fx-font-weight: bold;");
+        label1.setTextFill(Color.YELLOW);
+        label1.setUnderline(true);
+
+        Text text = new Text();
+        text.setFont(Font.font(STYLESHEET_CASPIAN, 30));
+        text.setFill(Color.PINK);
+        text.setStroke(Color.PINK);
+        text.setStrokeWidth(3);
+
+        label1.setFont(Font.font(30));
+
+        Button b1 = new Button("Yes");
+        Button b2 = new Button("No");
+        Button b3 = new Button("Exit");
+        b1.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        b2.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        b3.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        b3.setAlignment(Pos.BOTTOM_LEFT);
+
+        pane.setBottom(b3);
+        BorderPane.setAlignment(b3, Pos.BOTTOM_LEFT);
+        b3.setFont(Font.font(18));
+
+        Button b4 = new Button("About");
+        b4.setStyle("-fx-background-color: yellow; -fx-text-fill: black");
+        b1.setFont(Font.font(18));
+        b2.setFont(Font.font(18));
+        b4.setFont(Font.font(18));
+
+        b1.setOnAction(e -> {
+            Stage stage = (Stage) b1.getScene().getWindow();
+            stage.setScene(loginScene);
+        });
+
+        b2.setOnAction(e -> {
+        	
+        	label2.setText("\"Please Go to HBL branch to Create The Account\"");
+          //  text.setText("Please Go to HBL branch to Create The Account");
+            label2.setTextFill(Color.BLUE);
+            label1.setStyle("-fx-font-weight: bold;");
+            label2.setStyle("-fx-font-weight: bold;");
+            label2.setFont(Font.font(18));
+            //label2.setRotate(90);
+            
+            
+        });
+
+        b3.setOnAction(e -> {
+            Stage stage = (Stage) b3.getScene().getWindow();
+            stage.setScene(exitScene);
+        });
+        b4.setOnAction(e -> {
+            Stage stage = (Stage) b4.getScene().getWindow();
+            stage.setScene(AboutScene);
+        });
+        
+
+        VBox vb = new VBox(10);
+        vb.getChildren().addAll(label1, b1, b2,label2);
+        vb.setAlignment(Pos.CENTER);
+
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/HBL.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+        AnchorPane pane2 = new AnchorPane();
+        pane2.setTopAnchor(b4, 10.0);
+        pane2.setRightAnchor(b4, 10.0);
+
+        pane.setTop(b4);
+        Background bg = new Background(bgImg);
+        pane.setBackground(bg);
+        pane.setCenter(vb);
+
+        alreadyaccScene = new Scene(pane, 450, 400);
+    }
+
+    private void loginScene() {
+        BorderPane pane = new BorderPane();
+
+        Label label1 = new Label("Welcome to HBL");
+        label1.setStyle("-fx-font-weight: bold;");
+        label1.setPadding(new Insets(15));
+        label1.setFont(Font.font(30));
+        label1.setUnderline(true);
+        label1.setTextFill(Color.YELLOW);
+        HBox topBox = new HBox(label1);
+        topBox.setAlignment(Pos.CENTER);
+
+        Label label2 = new Label("Enter Your Account Pin");
+        label2.setTextFill(Color.CORAL);
+        label2.setStyle("-fx-font-weight: bold;");
+        label2.setFont(Font.font(25));
+        PasswordField pf = new PasswordField();
+        pf.setPadding(new Insets(10));
+        pf.setPrefWidth(200);
+        pf.setPromptText("Enter Your Pin");
+        pf.setFocusTraversable(false);
+        Label label3 = new Label();
+        Button b1 = new Button("Submit");
+        b1.setStyle("-fx-background-color: pink; -fx-text-fill: black");
+        b1.setFont(Font.font(22));
+        b1.setOnAction(e -> {
+            Stage stage = (Stage) b1.getScene().getWindow();
+            if (pf.getText().equals("12345")) {
+                stage.setScene(menuScene);
+            } else {
+                label3.setText("Invalid pin");
+                label3.setTextFill(Color.PINK);
+                label3.setStyle("-fx-font-weight: bold;");
+            }
+        });
+        Image img = new Image("file:C:/Users/mkmal/OneDrive/Desktop/HBL.jpg");
+        BackgroundImage bgImg = new BackgroundImage(
+                img,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(100, 100, true, true, true, true)
+        );
+        VBox root = new VBox(10);
+        root.setAlignment(Pos.CENTER);
+        root.getChildren().addAll(label2, pf, b1, label3);
+        pane.setBackground(new Background(bgImg));
+        pane.setTop(topBox);
+        pane.setCenter(root);
+
+        loginScene = new Scene(pane, 400, 450);
+    }
+}
